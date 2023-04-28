@@ -1,6 +1,6 @@
 // See README.md for license details.
 
-package Adder
+package example
 
 import chisel3._
 import chiseltest._

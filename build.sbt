@@ -1,7 +1,7 @@
 // See README.md for license details.
 
-ThisBuild / scalaVersion     := "2.13.8"
-ThisBuild / version          := "0.1.0"
+ThisBuild / scalaVersion := "2.13.8"
+ThisBuild / version := "0.1.0"
 //ThisBuild / organization     := "%ORGANIZATION%"
 
 val chiselVersion = "3.5.4"
@@ -11,15 +11,17 @@ lazy val root = (project in file("."))
     name := "chiselExample",
     libraryDependencies ++= Seq(
       "edu.berkeley.cs" %% "chisel3" % chiselVersion,
-      "edu.berkeley.cs" %% "chiseltest" % "0.5.4" % "test"
+      "edu.berkeley.cs" %% "chiseltest" % "0.5.4" % "test",
+      "com.lihaoyi" %% "pprint" % "0.8.1" // print,debug
     ),
     scalacOptions ++= Seq(
       "-language:reflectiveCalls",
       "-deprecation",
       "-feature",
       "-Xcheckinit",
-      "-P:chiselplugin:genBundleElements",
+      "-P:chiselplugin:genBundleElements"
     ),
-    addCompilerPlugin("edu.berkeley.cs" % "chisel3-plugin" % chiselVersion cross CrossVersion.full),
+    addCompilerPlugin(
+      "edu.berkeley.cs" % "chisel3-plugin" % chiselVersion cross CrossVersion.full
+    )
   )
-

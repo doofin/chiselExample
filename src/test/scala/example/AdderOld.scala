@@ -1,4 +1,4 @@
-package Adder
+package example
 
 import chisel3._
 import chisel3.stage.ChiselStage
@@ -44,31 +44,31 @@ class adderSpec extends AnyPropSpec {
         input reset : UInt<1>
         output io : { flip a : UInt<32>, flip b : UInt<32>, y : UInt<32>}
 
-        node _io_y_T = add(io.a, io.b) @[Adder.scala 88:16]
-        node _io_y_T_1 = tail(_io_y_T, 1) @[Adder.scala 88:16]
-        io.y <= _io_y_T_1 @[Adder.scala 88:8]
+        node _io_y_T = add(io.a, io.b) @[AdderOld.scala 88:16]
+        node _io_y_T_1 = tail(_io_y_T, 1) @[AdderOld.scala 88:16]
+        io.y <= _io_y_T_1 @[AdderOld.scala 88:8]
         */
     val firrtlR = ChiselStage.emitFirrtl {
       new adder()
     }
     println("firrtlR")
     println(firrtlR.toString)
-    /*
+  }
+}
+
+/*
 firrtlR
 
 circuit adder :
-  module adder :
-    input clock : Clock
-    input reset : UInt<1>
-    output io : { flip a : UInt<32>, flip b : UInt<32>, y : UInt<32>}
+module adder :
+input clock : Clock
+input reset : UInt<1>
+output io : { flip a : UInt<32>, flip b : UInt<32>, y : UInt<32>}
 
-    node _io_y_T = add(io.a, io.b) @[Adder.scala 88:16]
-    node _io_y_T_1 = tail(_io_y_T, 1) @[Adder.scala 88:16]
-    io.y <= _io_y_T_1 @[Adder.scala 88:8]
- */
-  }
-
-}
+node _io_y_T = add(io.a, io.b) @[AdderOld.scala 88:16]
+node _io_y_T_1 = tail(_io_y_T, 1) @[AdderOld.scala 88:16]
+io.y <= _io_y_T_1 @[AdderOld.scala 88:8]
+*/
 
 /*circuit useradder :
   module adder :
@@ -76,19 +76,19 @@ circuit adder :
     input reset : Reset
     output io : { flip a : UInt<32>, flip b : UInt<32>, y : UInt<32>}
 
-    node _io_y_T = add(io.a, io.b) @[Adder.scala 89:16]
-    node _io_y_T_1 = tail(_io_y_T, 1) @[Adder.scala 89:16]
-    io.y <= _io_y_T_1 @[Adder.scala 89:8]
-    node _io_y_T_2 = and(io.a, io.b) @[Adder.scala 90:17]
-    io.y <= _io_y_T_2 @[Adder.scala 90:9]
+    node _io_y_T = add(io.a, io.b) @[AdderOld.scala 89:16]
+    node _io_y_T_1 = tail(_io_y_T, 1) @[AdderOld.scala 89:16]
+    io.y <= _io_y_T_1 @[AdderOld.scala 89:8]
+    node _io_y_T_2 = and(io.a, io.b) @[AdderOld.scala 90:17]
+    io.y <= _io_y_T_2 @[AdderOld.scala 90:9]
 
   module useradder :
     input clock : Clock
     input reset : UInt<1>
 
-    inst n of adder @[Adder.scala 94:17]
+    inst n of adder @[AdderOld.scala 94:17]
     n.clock <= clock
     n.reset <= reset
-    n.io.a <= UInt<1>("h1") @[Adder.scala 95:9]
-    n.io.b <= UInt<1>("h1") @[Adder.scala 96:9]
+    n.io.a <= UInt<1>("h1") @[AdderOld.scala 95:9]
+    n.io.b <= UInt<1>("h1") @[AdderOld.scala 96:9]
 */
